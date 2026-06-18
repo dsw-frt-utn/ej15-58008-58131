@@ -3,54 +3,40 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 using System.Text.Json;
+using DSW2026Ej15.Data.Dto;
 
-namespace DSW2026Ej15.Data
-{
+namespace DSW2026Ej15.Data;
     internal class PersistenceInMemory : IPersistence
     {
-        private readonly List<Speciality> _specialities = new();
-        private readonly List<Doctor> _doctors = new();
+        private readonly List<Speciality> _specialities = [];
+        private readonly List<Doctor> _doctors = [];
         private readonly object _lock = new();
 
         public PersistenceInMemory()
         {
-            LoadSpecialitiesAsync().GetAwaiter().GetResult();
+            LoadSpecialities();
         }
 
-        private async Task LoadSpecialitiesAsync()
+        private void LoadSpecialities()
         {
             try
             {
-                string filePath = Path.Combine(AppContext.BaseDirectory, "specialities.json");
+                string jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                    "Sources", "specialities.json");
 
-                if (File.Exists(filePath))
-                {
-                    string json = await File.ReadAllTextAsync(filePath);
+                var json = File.ReadAllText(jsonPath);
 
-                    var options = new JsonSerializerOptions
+                var specialities = JsonSerializer.Deserialize<List<SpecialityDto>>(json,
+                    new JsonSerializerOptions()
                     {
                         PropertyNameCaseInsensitive = true
-                    };
+                    }) ?? [];
 
-                    var list = JsonSerializer.Deserialize<List<Speciality>>(json, options);
-
-                    if (list != null)
-                    {
-                        // Bloqueamos la lista sólo el instante en que agregamos los elementos
-                        lock (_lock)
-                        {
-                            _specialities.AddRange(list);
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"[Advertencia] No se encontró el archivo JSON en: {filePath}");
-                }
+                _specialities = [.. specialities.Select(s => new Speciality(s.Name, s.Description, s.Id))];
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"[Error] Al cargar especialidades de forma asíncrona: {ex.Message}");
+                
             }
         }
 
@@ -79,4 +65,3 @@ namespace DSW2026Ej15.Data
             lock (_lock) _doctors.Add(doctor);
         }
     }
-}
