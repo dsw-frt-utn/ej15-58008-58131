@@ -9,9 +9,9 @@ using DSW2026Ej15.Domain;
 namespace DSW2026Ej15.Data;
     public class PersistenceInMemory : IPersistence
     {
-        private readonly List<Speciality> _specialities = [];
-        private readonly List<Doctor> _doctors = [];
-        private readonly object _lock = new();
+        private List<Speciality> _specialities = [];
+        private List<Doctor> _doctors = [];
+        private object _lock = new();
 
         public PersistenceInMemory()
         {
@@ -33,7 +33,7 @@ namespace DSW2026Ej15.Data;
                         PropertyNameCaseInsensitive = true
                     }) ?? [];
 
-                _specialities = [.. specialities.Select(s => new Speciality(s.Name, s.Description, s.Id))];
+                _specialities = [.. specialities.Select(s => new Speciality(s.name, s.description, s.id))];
             }
             catch (Exception)
             {
@@ -69,5 +69,14 @@ namespace DSW2026Ej15.Data;
         public Doctor? GetDoctorById(Guid id)
         {
             lock (_lock) return _doctors.FirstOrDefault(d => d.Id == id);
+        }
+
+        public void DeleteDoctorById(Guid id)
+        {
+            lock (_lock) 
+            {
+                var doctor = _doctors.FirstOrDefault(d => d.Id == id);
+                doctor.IsActive = false;
+            }
         }
 }

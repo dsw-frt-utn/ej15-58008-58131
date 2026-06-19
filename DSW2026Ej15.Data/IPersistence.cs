@@ -10,4 +10,5 @@ public interface IPersistence
     Doctor? GetActiveDoctorById(Guid id);
     Doctor? GetDoctorById(Guid id);
     void AddDoctor(Doctor doctor);
+    void DeleteDoctorById(Guid id);
 }
