@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
+﻿using DSW2026Ej15.Domain;
 
 namespace DSW2026Ej15.Data;
 
-internal interface IPersistence
+public interface IPersistence
 {
     IEnumerable<Speciality> GetSpecialities();
     Speciality? GetSpecialityById(Guid id);

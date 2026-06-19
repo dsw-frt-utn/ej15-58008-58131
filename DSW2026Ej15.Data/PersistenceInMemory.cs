@@ -4,9 +4,10 @@ using System.Numerics;
 using System.Text;
 using System.Text.Json;
 using DSW2026Ej15.Data.Dto;
+using DSW2026Ej15.Domain;
 
 namespace DSW2026Ej15.Data;
-    internal class PersistenceInMemory : IPersistence
+    public class PersistenceInMemory : IPersistence
     {
         private readonly List<Speciality> _specialities = [];
         private readonly List<Doctor> _doctors = [];
@@ -64,4 +65,9 @@ namespace DSW2026Ej15.Data;
         {
             lock (_lock) _doctors.Add(doctor);
         }
-    }
+
+        public Doctor? GetDoctorById(Guid id)
+        {
+            lock (_lock) return _doctors.FirstOrDefault(d => d.Id == id);
+        }
+}
