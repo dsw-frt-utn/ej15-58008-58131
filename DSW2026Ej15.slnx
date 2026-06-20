@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="DSW2026Ej15.Api/DSW2026Ej15.Api.csproj" Id="5578f37e-f7c4-440a-87ca-b9f1f993872e" />
+  <Project Path="DSW2026Ej15.Data/DSW2026Ej15.Data.csproj" Id="a665b7d2-0a9f-485c-9b80-1834d7297b95" />
+  <Project Path="DSW2026Ej15.Domain/DSW2026Ej15.Domain.csproj" Id="93d76523-7215-4d6f-8d1a-cfa067f8e4b3" />
+</Solution>
