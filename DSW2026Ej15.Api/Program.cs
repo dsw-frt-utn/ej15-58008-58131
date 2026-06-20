@@ -1,5 +1,6 @@
-using DSW2026Ej15.Domain.Interface;
+using DSW2026Ej15.Api.Middleware;
 using DSW2026Ej15.Data;
+using DSW2026Ej15.Domain.Interface;
 namespace DSW2026Ej15.Api;
 
 public class Program
@@ -10,16 +11,14 @@ public class Program
 
         // Add services to the container.
 
-        builder.Services.AddControllers(options =>
-        {
-            options.Filters.Add<DSW2026Ej15.Api.Filters.ValidationExceptionFilter>();
-        });
         builder.Services.AddSwaggerGen();
         builder.Services.AddSingleton<IPersistence, PersistenceInMemory>();
 
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
+
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         if (app.Environment.IsDevelopment())
         {
