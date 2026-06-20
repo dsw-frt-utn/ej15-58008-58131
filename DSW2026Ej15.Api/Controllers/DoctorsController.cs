@@ -1,8 +1,7 @@
 ﻿using DSW2026Ej15.Api.Models;
-using DSW2026Ej15.Data;
-using DSW2026Ej15.Domain.Entidades;
+using DSW2026Ej15.Domain.Interface;
+using DSW2026Ej15.Domain.Source;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 using DSW2026Ej15.Domain.Exceptions;
 
 namespace DSW2026Ej15.Api.Controllers;

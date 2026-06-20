@@ -1,6 +1,6 @@
-﻿using DSW2026Ej15.Domain.Entidades;
+﻿using DSW2026Ej15.Domain.Source;
 
-namespace DSW2026Ej15.Data;
+namespace DSW2026Ej15.Domain.Interface;
 
 public interface IPersistence
 {

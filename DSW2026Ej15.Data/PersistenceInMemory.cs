@@ -4,7 +4,8 @@ using System.Numerics;
 using System.Text;
 using System.Text.Json;
 using DSW2026Ej15.Data.Dto;
-using DSW2026Ej15.Domain.Entidades;
+using DSW2026Ej15.Domain.Source;
+using DSW2026Ej15.Domain.Interface;
 
 namespace DSW2026Ej15.Data;
     public class PersistenceInMemory : IPersistence
