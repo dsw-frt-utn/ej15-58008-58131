@@ -6,7 +6,6 @@ public interface IPersistence
 {
     IEnumerable<Speciality> GetSpecialities();
     Speciality? GetSpecialityById(Guid id);
-    void SaveDoctor(Doctor doctor);
     IEnumerable<Doctor> GetActiveDoctors();
     Doctor? GetActiveDoctorById(Guid id);
     Doctor? GetDoctorById(Guid id);
