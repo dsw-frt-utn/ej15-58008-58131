@@ -4,7 +4,7 @@ using System.Numerics;
 using System.Text;
 using System.Text.Json;
 using DSW2026Ej15.Data.Dto;
-using DSW2026Ej15.Domain;
+using DSW2026Ej15.Domain.Entidades;
 
 namespace DSW2026Ej15.Data;
     public class PersistenceInMemory : IPersistence
@@ -18,7 +18,7 @@ namespace DSW2026Ej15.Data;
             LoadSpecialities();
         }
 
-        private void LoadSpecialities()
+    private void LoadSpecialities()
         {
             try
             {
@@ -79,4 +79,9 @@ namespace DSW2026Ej15.Data;
                 doctor.IsActive = false;
             }
         }
+
+    public void SaveDoctor(Doctor doctor)
+    {
+        _doctors.Add(doctor);
+    }
 }

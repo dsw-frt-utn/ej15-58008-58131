@@ -1,5 +1,8 @@
-﻿using DSW2026Ej15.Data;
+﻿using DSW2026Ej15.Api.Models;
+using DSW2026Ej15.Data;
+using DSW2026Ej15.Domain.Entidades;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace DSW2026Ej15.Api.Controllers;
 
@@ -11,6 +14,33 @@ public class DoctorsController : AppController
     {
         _persistence = persistence;
     }
+
+    [HttpPost("doctors")]
+    public async Task<IActionResult> CreateDoctor(DoctorModel.Request request) 
+    {
+        if(string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.LicenseNumber))
+        {
+            return BadRequest("Nombre y matricula son requeridos");
+        }
+
+        var speciality = _persistence.GetSpecialityById(request.SpecialityId);
+        if(speciality is null)
+        {
+            return BadRequest("No existe Especialidad");
+        }
+        var doctor = new Doctor(request.Name, request.LicenseNumber, speciality);
+        _persistence.AddDoctor(doctor);
+
+        return Created();
+    }
+
+    [HttpGet("doctors")]
+    public async Task<IActionResult> GetAllActiveDoctor()
+    {
+        var activeDoctor = _persistence.GetActiveDoctors();
+        return Ok(activeDoctor);
+    }
+
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetDoctor(Guid id)

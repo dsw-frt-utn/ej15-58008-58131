@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DSW2026Ej15.Domain;
+namespace DSW2026Ej15.Domain.Entidades;
 
 public class Speciality : BaseEntity
 {
