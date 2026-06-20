@@ -13,6 +13,7 @@ public class Program
 
         builder.Services.AddSwaggerGen();
         builder.Services.AddSingleton<IPersistence, PersistenceInMemory>();
+        builder.Services.AddHealthChecks();
 
         var app = builder.Build();
 
@@ -27,7 +28,7 @@ public class Program
         }
 
         app.UseAuthorization();
-
+        app.MapHealthChecks("/health-check");
 
         app.MapControllers();
 
