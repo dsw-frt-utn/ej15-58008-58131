@@ -9,7 +9,10 @@ public class Program
 
         // Add services to the container.
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers(options =>
+        {
+            options.Filters.Add<DSW2026Ej15.Api.Filters.ValidationExceptionFilter>();
+        });
         builder.Services.AddSwaggerGen();
         builder.Services.AddSingleton<IPersistence, PersistenceInMemory>();
 
