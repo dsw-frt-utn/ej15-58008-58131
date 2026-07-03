@@ -19,7 +19,7 @@ namespace DSW2026Ej15.Data;
             LoadSpecialities();
         }
 
-    private void LoadSpecialities()
+        private void LoadSpecialities()
         {
             try
             {
@@ -42,37 +42,37 @@ namespace DSW2026Ej15.Data;
             }
         }
 
-        public IEnumerable<Speciality> GetSpecialities()
+        public async Task<IEnumerable<Speciality>> GetSpecialitiesAsync()
         {
             lock (_lock) return _specialities.ToList();
         }
 
-        public Speciality? GetSpecialityById(Guid id)
+        public async Task<Speciality?> GetSpecialityByIdAsync(Guid id)
         {
             lock (_lock) return _specialities.FirstOrDefault(s => s.Id == id);
         }
 
-        public IEnumerable<Doctor> GetActiveDoctors()
+        public async Task<IEnumerable<Doctor>> GetActiveDoctorsAsync()
         {
             lock (_lock) return _doctors.Where(d => d.IsActive).ToList();
         }
 
-        public Doctor? GetActiveDoctorById(Guid id)
+        public async Task<Doctor?> GetActiveDoctorByIdAsync(Guid id)
         {
             lock (_lock) return _doctors.FirstOrDefault(d => d.Id == id && d.IsActive);
         }
 
-        public void AddDoctor(Doctor doctor)
+        public async Task AddDoctorAsync(Doctor doctor)
         {
             lock (_lock) _doctors.Add(doctor);
         }
 
-        public Doctor? GetDoctorById(Guid id)
+        public async Task<Doctor?> GetDoctorByIdAsync(Guid id)
         {
             lock (_lock) return _doctors.FirstOrDefault(d => d.Id == id);
         }
 
-        public void DeleteDoctorById(Guid id)
+        public async Task DeleteDoctorByIdAsync(Guid id)
         {
             lock (_lock) 
             {
@@ -81,8 +81,18 @@ namespace DSW2026Ej15.Data;
             }
         }
 
-    public void SaveDoctor(Doctor doctor)
+        public async Task SaveDoctorAsync(Doctor doctor)
+        {
+            lock (_lock) _doctors.Add(doctor);
+        }
+
+    public Task<IEnumerable<Doctor>> GetAllDoctorsAsync()
     {
-        _doctors.Add(doctor);
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteDoctorAsync(Doctor doctor)
+    {
+        throw new NotImplementedException();
     }
 }

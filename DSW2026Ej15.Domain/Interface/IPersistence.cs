@@ -4,11 +4,9 @@ namespace DSW2026Ej15.Domain.Interface;
 
 public interface IPersistence
 {
-    IEnumerable<Speciality> GetSpecialities();
-    Speciality? GetSpecialityById(Guid id);
-    IEnumerable<Doctor> GetActiveDoctors();
-    Doctor? GetActiveDoctorById(Guid id);
-    Doctor? GetDoctorById(Guid id);
-    void AddDoctor(Doctor doctor);
-    void DeleteDoctorById(Guid id);
+    Task<Speciality?> GetSpecialityByIdAsync(Guid Id);
+    Task<IEnumerable<Doctor>> GetAllDoctorsAsync();
+    Task<Doctor?> GetDoctorByIdAsync(Guid Id);
+    Task SaveDoctorAsync(Doctor doctor);
+    Task DeleteDoctorAsync(Doctor doctor);
 }
